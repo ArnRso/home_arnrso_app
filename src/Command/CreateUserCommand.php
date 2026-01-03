@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Command;
 
 use App\Entity\User;
@@ -13,10 +15,7 @@ use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-#[AsCommand(
-    name: 'app:create-user',
-    description: 'Create a new user with a generated password',
-)]
+#[AsCommand(name: 'app:create-user', description: 'Create a new user with a generated password',)]
 class CreateUserCommand extends Command
 {
     public function __construct(
@@ -29,25 +28,20 @@ class CreateUserCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $helper = $this->getHelper('question');
 
         $io->title('Create a new user');
 
         $emailQuestion = new Question('Email address: ');
         $emailQuestion->setValidator(function ($answer) {
-            if (!filter_var($answer, FILTER_VALIDATE_EMAIL)) {
+            if (! filter_var($answer, FILTER_VALIDATE_EMAIL)) {
                 throw new \RuntimeException('Please enter a valid email address.');
             }
             return $answer;
         });
-        $email = $helper->ask($input, $output, $emailQuestion);
+        $email = $io->askQuestion($emailQuestion);
 
-        $roleQuestion = new ChoiceQuestion(
-            'Select role (default: USER)',
-            ['USER', 'ADMIN'],
-            0
-        );
-        $role = $helper->ask($input, $output, $roleQuestion);
+        $roleQuestion = new ChoiceQuestion('Select role (default: USER)', ['USER', 'ADMIN'], 0);
+        $role = $io->askQuestion($roleQuestion);
 
         $password = $this->generatePassword();
 
@@ -60,14 +54,7 @@ class CreateUserCommand extends Command
         $this->entityManager->flush();
 
         $io->success('User created successfully!');
-        $io->table(
-            ['Field', 'Value'],
-            [
-                ['Email', $email],
-                ['Role', $role],
-                ['Generated Password', $password],
-            ]
-        );
+        $io->table(['Field', 'Value'], [['Email', $email], ['Role', $role], ['Generated Password', $password]]);
 
         $io->warning('Please save this password securely. It will not be shown again.');
 
