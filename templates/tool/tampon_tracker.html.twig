@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tampon Tracker{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">Tampon Tracker</h2>
+                </div>
+                <div class="card-body">
+                    <div class="mb-4">
+                        <h5>Current Status</h5>
+                        {% if currentStatus == 'inserted' %}
+                            <div class="alert alert-success">
+                                <strong>Status:</strong> Tampon inserted
+                            </div>
+                        {% elseif currentStatus == 'removed' %}
+                            <div class="alert alert-warning">
+                                <strong>Status:</strong> No tampon
+                            </div>
+                        {% else %}
+                            <div class="alert alert-info">
+                                <strong>Status:</strong> No data yet
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="row g-2 mb-4">
+                        <div class="col-6">
+                            <form method="post" action="{{ path('app_tool_tampon_tracker_toggle') }}">
+                                <input type="hidden" name="action" value="inserted">
+                                <button type="submit" class="btn btn-success w-100" {% if currentStatus == 'inserted' %}disabled{% endif %}>
+                                    Insert
+                                </button>
+                            </form>
+                        </div>
+                        <div class="col-6">
+                            <form method="post" action="{{ path('app_tool_tampon_tracker_toggle') }}">
+                                <input type="hidden" name="action" value="removed">
+                                <button type="submit" class="btn btn-warning w-100" {% if currentStatus == 'removed' or currentStatus is null %}disabled{% endif %}>
+                                    Remove
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    {% if events|length > 0 %}
+                        <div class="mt-4">
+                            <h5>History</h5>
+                            <div class="list-group">
+                                {% for event in events %}
+                                    <div class="list-group-item">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <span>
+                                                {% if event.action == 'inserted' %}
+                                                    <span class="badge bg-success">Inserted</span>
+                                                {% else %}
+                                                    <span class="badge bg-warning">Removed</span>
+                                                {% endif %}
+                                            </span>
+                                            <small class="text-muted">{{ event.createdAt|date('Y-m-d H:i:s') }}</small>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Component\Dotenv\Dotenv;
 
@@ -20,7 +19,7 @@ if ($_ENV['APP_ENV'] === 'test') {
     $testDbPath = dirname(__DIR__) . '/var/cache/test/test.db';
     $testCacheDir = dirname($testDbPath);
 
-    if (!is_dir($testCacheDir)) {
+    if (! is_dir($testCacheDir)) {
         mkdir($testCacheDir, 0777, true);
     }
 
@@ -32,8 +31,11 @@ if ($_ENV['APP_ENV'] === 'test') {
     $kernel = new App\Kernel($_ENV['APP_ENV'], (bool) $_ENV['APP_DEBUG']);
     $kernel->boot();
 
-    $entityManager = $kernel->getContainer()->get('doctrine')->getManager();
-    $metadata = $entityManager->getMetadataFactory()->getAllMetadata();
+    $entityManager = $kernel->getContainer()
+        ->get('doctrine')
+        ->getManager();
+    $metadata = $entityManager->getMetadataFactory()
+        ->getAllMetadata();
 
     $schemaTool = new SchemaTool($entityManager);
     $schemaTool->createSchema($metadata);

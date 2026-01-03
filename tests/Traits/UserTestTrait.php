@@ -10,6 +10,9 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 trait UserTestTrait
 {
+    /**
+     * @param list<string> $roles
+     */
     private function createTestUser(
         string $email,
         array $roles = ['ROLE_USER'],
