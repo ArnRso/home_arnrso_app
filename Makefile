@@ -67,6 +67,8 @@ fix: ## Fix code style issues
 	vendor/bin/ecs check --fix
 
 ci: ## Run all CI checks locally (tests + static analysis + code style)
+	@echo "Installing AssetMapper dependencies..."
+	php bin/console importmap:install
 	@echo "Running PHPUnit tests..."
 	php bin/phpunit
 	@echo "Running PHPStan static analysis..."
