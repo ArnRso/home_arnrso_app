@@ -1,0 +1,37 @@
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Dependencies
+/vendor/
+
+# Build
+/var/
+
+# Environment
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Tests
+/tests/
+/.phpunit.cache
+
+# Documentation
+README.md
+CLAUDE.md
