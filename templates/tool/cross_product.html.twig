@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cross Product Calculator{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% block importmap %}
+        {{ importmap('app') }}
+        {{ importmap('cross-product-calculator') }}
+    {% endblock %}
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">Cross Product Calculator</h2>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">Calculate: if a/b = c/x, then x = ?</p>
+
+                    <div id="crossProductForm">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="valueA" class="form-label">Value A</label>
+                                <input type="number" step="any" class="form-control" id="valueA" placeholder="Enter A">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="valueB" class="form-label">Value B</label>
+                                <input type="number" step="any" class="form-control" id="valueB" placeholder="Enter B">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="valueC" class="form-label">Value C</label>
+                                <input type="number" step="any" class="form-control" id="valueC" placeholder="Enter C">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Result X</label>
+                                <input type="text" class="form-control bg-light" id="resultX" placeholder="Result will appear here" readonly>
+                            </div>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="button" class="btn btn-secondary" id="resetBtn">Reset</button>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 alert alert-info">
+                        <strong>Formula:</strong> If a/b = c/x, then x = (b × c) / a
+                    </div>
+
+                    <div id="errorMessage" class="mt-3 alert alert-danger d-none"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
