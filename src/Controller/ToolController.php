@@ -27,10 +27,10 @@ class ToolController extends AbstractController
         $user = $this->getUser();
 
         $lastEvent = $repository->findOneBy([
-                'user' => $user,
-            ], [
-                'id' => 'DESC',
-            ]);
+            'user' => $user,
+        ], [
+            'id' => 'DESC',
+        ]);
 
         $currentStatus = null;
         if ($lastEvent !== null) {
@@ -38,10 +38,10 @@ class ToolController extends AbstractController
         }
 
         $events = $repository->findBy([
-                'user' => $user,
-            ], [
-                'id' => 'DESC',
-            ], 50);
+            'user' => $user,
+        ], [
+            'id' => 'DESC',
+        ], 50);
 
         return $this->render('tool/tampon_tracker.html.twig', [
             'currentStatus' => $currentStatus,
