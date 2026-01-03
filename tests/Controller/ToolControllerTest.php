@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
-use App\Entity\User;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Tests\Traits\UserTestTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ToolControllerTest extends WebTestCase
 {
+    use UserTestTrait;
+
     public function testCrossProductCalculatorPageRequiresAuthentication(): void
     {
         $client = static::createClient();
@@ -22,21 +22,8 @@ class ToolControllerTest extends WebTestCase
     public function testCrossProductCalculatorPageWithAuthenticatedUser(): void
     {
         $client = static::createClient();
-        $container = static::getContainer();
 
-        $entityManager = $container->get(EntityManagerInterface::class);
-        $passwordHasher = $container->get(UserPasswordHasherInterface::class);
-
-        $testEmail = 'tool_test_' . uniqid() . '@example.com';
-
-        $user = new User();
-        $user->setEmail($testEmail);
-        $user->setRoles(['ROLE_USER']);
-        $user->setPassword($passwordHasher->hashPassword($user, 'password'));
-
-        $entityManager->persist($user);
-        $entityManager->flush();
-
+        $user = $this->createTestUser('tool_test@example.com', ['ROLE_USER']);
         $client->loginUser($user);
 
         $crawler = $client->request('GET', '/tools/cross-product');
@@ -48,29 +35,13 @@ class ToolControllerTest extends WebTestCase
         $this->assertSelectorExists('#valueB');
         $this->assertSelectorExists('#valueC');
         $this->assertSelectorExists('#resultX');
-
-        $entityManager->remove($user);
-        $entityManager->flush();
     }
 
     public function testCrossProductCalculatorHasToolsDropdownInNavbar(): void
     {
         $client = static::createClient();
-        $container = static::getContainer();
 
-        $entityManager = $container->get(EntityManagerInterface::class);
-        $passwordHasher = $container->get(UserPasswordHasherInterface::class);
-
-        $testEmail = 'tool_navbar_' . uniqid() . '@example.com';
-
-        $user = new User();
-        $user->setEmail($testEmail);
-        $user->setRoles(['ROLE_USER']);
-        $user->setPassword($passwordHasher->hashPassword($user, 'password'));
-
-        $entityManager->persist($user);
-        $entityManager->flush();
-
+        $user = $this->createTestUser('tool_navbar@example.com', ['ROLE_USER']);
         $client->loginUser($user);
 
         $crawler = $client->request('GET', '/tools/cross-product');
@@ -78,8 +49,5 @@ class ToolControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
         $this->assertSelectorExists('#toolsDropdown');
         $this->assertSelectorTextContains('#toolsDropdown', 'Tools');
-
-        $entityManager->remove($user);
-        $entityManager->flush();
     }
 }
