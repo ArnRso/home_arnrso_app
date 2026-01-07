@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create New User{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">Create New User</h2>
+                </div>
+                <div class="card-body">
+                    {% for message in app.flashes('error') %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+
+                    <form method="post" action="{{ path('app_admin_users_create') }}">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="role" class="form-label">Role</label>
+                            <select class="form-select" id="role" name="role" required>
+                                <option value="USER" selected>User</option>
+                                <option value="ADMIN">Admin</option>
+                            </select>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <strong>Note:</strong> A random password will be generated automatically for this user.
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">Create User</button>
+                            <a href="{{ path('app_admin_users_index') }}" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

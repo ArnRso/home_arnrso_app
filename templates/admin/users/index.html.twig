@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User Management{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>User Management</h2>
+                <a href="{{ path('app_admin_users_create') }}" class="btn btn-primary">Create New User</a>
+            </div>
+
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+
+            {% for password in app.flashes('password') %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Generated Password:</strong> <code>{{ password }}</code>
+                    <br><small>Please save this password securely. It will not be shown again.</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+
+            <div class="card shadow">
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Email</th>
+                                <th>Roles</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users %}
+                                <tr>
+                                    <td>{{ user.id }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>
+                                        {% for role in user.roles %}
+                                            <span class="badge bg-primary">{{ role }}</span>
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="3" class="text-center">No users found</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Command;
 
 use App\Entity\User;
+use App\Service\PasswordGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -21,6 +22,7 @@ class CreateUserCommand extends Command
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly UserPasswordHasherInterface $passwordHasher,
+        private readonly PasswordGenerator $passwordGenerator,
     ) {
         parent::__construct();
     }
@@ -43,7 +45,7 @@ class CreateUserCommand extends Command
         $roleQuestion = new ChoiceQuestion('Select role (default: USER)', ['USER', 'ADMIN'], 0);
         $role = $io->askQuestion($roleQuestion);
 
-        $password = $this->generatePassword();
+        $password = $this->passwordGenerator->generate();
 
         $user = new User();
         $user->setEmail($email);
@@ -59,18 +61,5 @@ class CreateUserCommand extends Command
         $io->warning('Please save this password securely. It will not be shown again.');
 
         return Command::SUCCESS;
-    }
-
-    private function generatePassword(int $length = 16): string
-    {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*';
-        $password = '';
-        $max = strlen($characters) - 1;
-
-        for ($i = 0; $i < $length; $i++) {
-            $password .= $characters[random_int(0, $max)];
-        }
-
-        return $password;
     }
 }
