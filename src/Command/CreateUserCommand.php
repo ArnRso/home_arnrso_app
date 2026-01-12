@@ -15,6 +15,7 @@ use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[AsCommand(name: 'app:create-user', description: 'Create a new user with a generated password',)]
 class CreateUserCommand extends Command
@@ -23,6 +24,7 @@ class CreateUserCommand extends Command
         private readonly EntityManagerInterface $entityManager,
         private readonly UserPasswordHasherInterface $passwordHasher,
         private readonly PasswordGenerator $passwordGenerator,
+        private readonly TranslatorInterface $translator,
     ) {
         parent::__construct();
     }
@@ -31,18 +33,21 @@ class CreateUserCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $io->title('Create a new user');
+        $io->title($this->translator->trans('command.create_user.title'));
 
-        $emailQuestion = new Question('Email address: ');
+        $emailQuestion = new Question($this->translator->trans('command.create_user.email_prompt'));
         $emailQuestion->setValidator(function ($answer) {
             if (! filter_var($answer, FILTER_VALIDATE_EMAIL)) {
-                throw new \RuntimeException('Please enter a valid email address.');
+                throw new \RuntimeException($this->translator->trans('command.create_user.email_validation'));
             }
             return $answer;
         });
         $email = $io->askQuestion($emailQuestion);
 
-        $roleQuestion = new ChoiceQuestion('Select role (default: USER)', ['USER', 'ADMIN'], 0);
+        $roleQuestion = new ChoiceQuestion($this->translator->trans('command.create_user.role_prompt'), [
+            'USER',
+            'ADMIN',
+        ], 0);
         $role = $io->askQuestion($roleQuestion);
 
         $password = $this->passwordGenerator->generate();
@@ -55,10 +60,20 @@ class CreateUserCommand extends Command
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
-        $io->success('User created successfully!');
-        $io->table(['Field', 'Value'], [['Email', $email], ['Role', $role], ['Generated Password', $password]]);
+        $io->success($this->translator->trans('command.create_user.success'));
+        $io->table(
+            [
+                $this->translator->trans('command.create_user.field'),
+                $this->translator->trans('command.create_user.value'),
+            ],
+            [
+                [$this->translator->trans('command.create_user.email_field'), $email],
+                [$this->translator->trans('command.create_user.role_field'), $role],
+                [$this->translator->trans('command.create_user.password_field'), $password],
+            ]
+        );
 
-        $io->warning('Please save this password securely. It will not be shown again.');
+        $io->warning($this->translator->trans('command.create_user.password_warning'));
 
         return Command::SUCCESS;
     }

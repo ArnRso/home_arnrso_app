@@ -1,0 +1,105 @@
+# Navigation
+nav:
+  brand: Application
+  tools: Outils
+  toggle: Basculer la navigation
+  hello: Bonjour,
+  logout: Déconnexion
+  user_management: Gestion des utilisateurs
+
+# Authentification
+auth:
+  login:
+    title: Connexion
+    heading: Veuillez vous identifier
+    email: Email
+    password: Mot de passe
+    remember_me: Se souvenir de moi
+    sign_in: Se connecter
+    logged_in_as: Vous êtes connecté en tant que
+  logout: Déconnexion
+
+# Page d'accueil
+home:
+  title: Accueil
+  welcome: Bienvenue
+  logged_in_as: Vous êtes connecté en tant que
+
+# Gestion des utilisateurs
+user:
+  title: Gestion des utilisateurs
+  create: Créer un nouvel utilisateur
+  create_button: Créer un utilisateur
+  list:
+    id: ID
+    email: Email
+    roles: Rôles
+    no_users: Aucun utilisateur trouvé
+  form:
+    email: Adresse email
+    role: Rôle
+    role_user: Utilisateur
+    role_admin: Administrateur
+    note: Note
+    password_auto: Un mot de passe aléatoire sera généré automatiquement pour cet utilisateur.
+  flash:
+    created: Utilisateur créé avec succès !
+    generated_password: Mot de passe généré
+    save_password: Veuillez sauvegarder ce mot de passe en lieu sûr. Il ne sera plus affiché.
+    invalid_form: Données du formulaire invalides.
+    invalid_email: Veuillez entrer une adresse email valide.
+
+# Outils
+tool:
+  cross_product:
+    title: Calculateur de Produit en Croix
+    subtitle: "Calculer : si a/b = c/x, alors x = ?"
+    value_a: Valeur A
+    value_b: Valeur B
+    value_c: Valeur C
+    result_x: Résultat X
+    placeholder_a: Entrez A
+    placeholder_b: Entrez B
+    placeholder_c: Entrez C
+    result_placeholder: Le résultat apparaîtra ici
+    reset: Réinitialiser
+    formula: Formule
+    formula_text: "Si a/b = c/x, alors x = (b × c) / a"
+  tampon_tracker:
+    title: Suivi de Tampon
+    current_status: État actuel
+    status: État
+    status_inserted: Tampon inséré
+    status_removed: Pas de tampon
+    status_no_data: Pas encore de données
+    insert: Insérer
+    remove: Retirer
+    history: Historique
+    action_inserted: Inséré
+    action_removed: Retiré
+
+# Commun
+common:
+  close: Fermer
+  cancel: Annuler
+  welcome: Bienvenue !
+
+# Commandes
+command:
+  create_user:
+    description: Créer un nouvel utilisateur
+    title: Créer un nouvel utilisateur
+    email_prompt: Adresse email
+    email_validation: Veuillez entrer une adresse email valide.
+    role_prompt: "Sélectionnez le rôle (par défaut : USER)"
+    success: Utilisateur créé avec succès !
+    field: Champ
+    value: Valeur
+    email_field: Email
+    role_field: Rôle
+    password_field: Mot de passe généré
+    password_warning: Veuillez sauvegarder ce mot de passe en lieu sûr. Il ne sera plus affiché.
+
+# Erreurs
+error:
+  invalid_action: Action invalide

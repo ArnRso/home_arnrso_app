@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}{{ 'common.welcome'|trans }}{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
         {% block stylesheets %}
         {% endblock %}
@@ -16,31 +16,31 @@
         {% if app.user %}
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="{{ path('app_home') }}">Application</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand" href="{{ path('app_home') }}">{{ 'nav.brand'|trans }}</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="{{ 'nav.toggle'|trans }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="toolsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Tools
+                                {{ 'nav.tools'|trans }}
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="toolsDropdown">
-                                <li><a class="dropdown-item" href="{{ path('app_tool_cross_product') }}">Cross Product Calculator</a></li>
-                                <li><a class="dropdown-item" href="{{ path('app_tool_tampon_tracker') }}">Tampon Tracker</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_tool_cross_product') }}">{{ 'tool.cross_product.title'|trans }}</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_tool_tampon_tracker') }}">{{ 'tool.tampon_tracker.title'|trans }}</a></li>
                                 {% if is_granted('ROLE_ADMIN') %}
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="{{ path('app_admin_users_index') }}">User Management</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('app_admin_users_index') }}">{{ 'nav.user_management'|trans }}</a></li>
                                 {% endif %}
                             </ul>
                         </li>
                     </ul>
                     <div class="d-flex align-items-center">
                         <span class="navbar-text me-3">
-                            Hello, {{ app.user.userIdentifier }}
+                            {{ 'nav.hello'|trans }} {{ app.user.userIdentifier }}
                         </span>
-                        <a href="{{ path('app_logout') }}" class="btn btn-outline-light btn-sm">Logout</a>
+                        <a href="{{ path('app_logout') }}" class="btn btn-outline-light btn-sm">{{ 'nav.logout'|trans }}</a>
                     </div>
                 </div>
             </div>

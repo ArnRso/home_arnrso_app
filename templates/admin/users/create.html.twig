@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Create New User{% endblock %}
+{% block title %}{{ 'user.create'|trans }}{% endblock %}
 
 {% block body %}
 <div class="container mt-5">
@@ -8,37 +8,37 @@
         <div class="col-md-8 col-lg-6">
             <div class="card shadow">
                 <div class="card-header bg-primary text-white">
-                    <h2 class="mb-0">Create New User</h2>
+                    <h2 class="mb-0">{{ 'user.create'|trans }}</h2>
                 </div>
                 <div class="card-body">
                     {% for message in app.flashes('error') %}
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             {{ message }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ 'common.close'|trans }}"></button>
                         </div>
                     {% endfor %}
 
                     <form method="post" action="{{ path('app_admin_users_create') }}">
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email Address</label>
+                            <label for="email" class="form-label">{{ 'user.form.email'|trans }}</label>
                             <input type="email" class="form-control" id="email" name="email" required>
                         </div>
 
                         <div class="mb-3">
-                            <label for="role" class="form-label">Role</label>
+                            <label for="role" class="form-label">{{ 'user.form.role'|trans }}</label>
                             <select class="form-select" id="role" name="role" required>
-                                <option value="USER" selected>User</option>
-                                <option value="ADMIN">Admin</option>
+                                <option value="USER" selected>{{ 'user.form.role_user'|trans }}</option>
+                                <option value="ADMIN">{{ 'user.form.role_admin'|trans }}</option>
                             </select>
                         </div>
 
                         <div class="alert alert-info">
-                            <strong>Note:</strong> A random password will be generated automatically for this user.
+                            <strong>{{ 'user.form.note'|trans }}:</strong> {{ 'user.form.password_auto'|trans }}
                         </div>
 
                         <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-primary">Create User</button>
-                            <a href="{{ path('app_admin_users_index') }}" class="btn btn-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-primary">{{ 'user.create_button'|trans }}</button>
+                            <a href="{{ path('app_admin_users_index') }}" class="btn btn-secondary">{{ 'common.cancel'|trans }}</a>
                         </div>
                     </form>
                 </div>
