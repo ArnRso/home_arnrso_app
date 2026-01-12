@@ -1,0 +1,105 @@
+# Navigation
+nav:
+  brand: Application
+  tools: Tools
+  toggle: Toggle navigation
+  hello: Hello,
+  logout: Logout
+  user_management: User Management
+
+# Authentication
+auth:
+  login:
+    title: Log in!
+    heading: Please sign in
+    email: Email
+    password: Password
+    remember_me: Remember me
+    sign_in: Sign in
+    logged_in_as: You are logged in as
+  logout: Logout
+
+# Home page
+home:
+  title: Home
+  welcome: Welcome
+  logged_in_as: You are logged in as
+
+# User Management
+user:
+  title: User Management
+  create: Create New User
+  create_button: Create User
+  list:
+    id: ID
+    email: Email
+    roles: Roles
+    no_users: No users found
+  form:
+    email: Email Address
+    role: Role
+    role_user: User
+    role_admin: Admin
+    note: Note
+    password_auto: A random password will be generated automatically for this user.
+  flash:
+    created: User created successfully!
+    generated_password: Generated Password
+    save_password: Please save this password securely. It will not be shown again.
+    invalid_form: Invalid form data.
+    invalid_email: Please enter a valid email address.
+
+# Tools
+tool:
+  cross_product:
+    title: Cross Product Calculator
+    subtitle: "Calculate: if a/b = c/x, then x = ?"
+    value_a: Value A
+    value_b: Value B
+    value_c: Value C
+    result_x: Result X
+    placeholder_a: Enter A
+    placeholder_b: Enter B
+    placeholder_c: Enter C
+    result_placeholder: Result will appear here
+    reset: Reset
+    formula: Formula
+    formula_text: "If a/b = c/x, then x = (b × c) / a"
+  tampon_tracker:
+    title: Tampon Tracker
+    current_status: Current Status
+    status: Status
+    status_inserted: Tampon inserted
+    status_removed: No tampon
+    status_no_data: No data yet
+    insert: Insert
+    remove: Remove
+    history: History
+    action_inserted: Inserted
+    action_removed: Removed
+
+# Common
+common:
+  close: Close
+  cancel: Cancel
+  welcome: Welcome!
+
+# Commands
+command:
+  create_user:
+    description: Create a new user
+    title: Create a new user
+    email_prompt: "Email address: "
+    email_validation: Please enter a valid email address.
+    role_prompt: "Select role (default: USER)"
+    success: User created successfully!
+    field: Field
+    value: Value
+    email_field: Email
+    role_field: Role
+    password_field: Generated Password
+    password_warning: Please save this password securely. It will not be shown again.
+
+# Errors
+error:
+  invalid_action: Invalid action

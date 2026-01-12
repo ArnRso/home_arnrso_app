@@ -13,10 +13,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/admin/users', name: 'app_admin_users_')]
 class UserManagementController extends AbstractController
 {
+    public function __construct(
+        private readonly TranslatorInterface $translator
+    ) {
+    }
+
     #[Route('', name: 'index')]
     public function index(UserRepository $userRepository): Response
     {
@@ -39,13 +45,13 @@ class UserManagementController extends AbstractController
             $role = $request->request->get('role');
 
             if (! is_string($email) || ! is_string($role)) {
-                $this->addFlash('error', 'Invalid form data.');
+                $this->addFlash('error', $this->translator->trans('user.flash.invalid_form'));
 
                 return $this->redirectToRoute('app_admin_users_create');
             }
 
             if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $this->addFlash('error', 'Please enter a valid email address.');
+                $this->addFlash('error', $this->translator->trans('user.flash.invalid_email'));
 
                 return $this->redirectToRoute('app_admin_users_create');
             }
@@ -60,7 +66,7 @@ class UserManagementController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $this->addFlash('success', 'User created successfully!');
+            $this->addFlash('success', $this->translator->trans('user.flash.created'));
             $this->addFlash('password', $password);
 
             return $this->redirectToRoute('app_admin_users_index');

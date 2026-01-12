@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}{{ 'auth.login.title'|trans }}{% endblock %}
 
 {% block body %}
 <div class="container">
@@ -8,7 +8,7 @@
         <div class="col-md-6 col-lg-4">
             <div class="card shadow">
                 <div class="card-body">
-                    <h1 class="card-title text-center mb-4">Please sign in</h1>
+                    <h1 class="card-title text-center mb-4">{{ 'auth.login.heading'|trans }}</h1>
 
                     {% if error %}
                         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -16,31 +16,31 @@
 
                     {% if app.user %}
                         <div class="alert alert-info">
-                            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ logout_path() }}" class="alert-link">Logout</a>
+                            {{ 'auth.login.logged_in_as'|trans }} {{ app.user.userIdentifier }}, <a href="{{ logout_path() }}" class="alert-link">{{ 'auth.logout'|trans }}</a>
                         </div>
                     {% endif %}
 
                     <form method="post">
                         <div class="mb-3">
-                            <label for="username" class="form-label">Email</label>
+                            <label for="username" class="form-label">{{ 'auth.login.email'|trans }}</label>
                             <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
                         </div>
 
                         <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
+                            <label for="password" class="form-label">{{ 'auth.login.password'|trans }}</label>
                             <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
                         </div>
 
                         <div class="mb-3 form-check">
                             <input type="checkbox" name="_remember_me" id="remember_me" class="form-check-input">
-                            <label for="remember_me" class="form-check-label">Remember me</label>
+                            <label for="remember_me" class="form-check-label">{{ 'auth.login.remember_me'|trans }}</label>
                         </div>
 
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
                         <div class="d-grid">
                             <button class="btn btn-primary" type="submit">
-                                Sign in
+                                {{ 'auth.login.sign_in'|trans }}
                             </button>
                         </div>
                     </form>

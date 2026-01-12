@@ -11,10 +11,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/tools', name: 'app_tool_')]
 class ToolController extends AbstractController
 {
+    public function __construct(
+        private readonly TranslatorInterface $translator
+    ) {
+    }
+
     #[Route('/cross-product', name: 'cross_product')]
     public function crossProduct(): Response
     {
@@ -60,7 +66,7 @@ class ToolController extends AbstractController
         $action = $request->request->get('action');
 
         if (! in_array($action, ['inserted', 'removed'], true)) {
-            throw $this->createNotFoundException('Invalid action');
+            throw $this->createNotFoundException($this->translator->trans('error.invalid_action'));
         }
 
         $event = new TamponEvent();
