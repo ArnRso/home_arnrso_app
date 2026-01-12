@@ -66,7 +66,7 @@ class ToolController extends AbstractController
         $event = new TamponEvent();
         $event->setUser($user);
         $event->setAction($action);
-        $event->setCreatedAt(new \DateTimeImmutable());
+        $event->setCreatedAt(new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris')));
 
         $entityManager->persist($event);
         $entityManager->flush();
