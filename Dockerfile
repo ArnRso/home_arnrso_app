@@ -1,4 +1,4 @@
-FROM dunglas/frankenphp:1-php8.4-bookworm@sha256:88cec19e1b1570b258f3e2d8aa91485dc20ad32920adc132d8b35f0c41affef7
+FROM dunglas/frankenphp:1-php8.5-bookworm@sha256:ee1b0d0d6023726f66c6bafba6e8fdbe7e4651d61c367dce822ec18016bb1a69
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
