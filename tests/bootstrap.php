@@ -2,13 +2,15 @@
 
 declare(strict_types=1);
 
+use App\Kernel;
 use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Component\Dotenv\Dotenv;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
 if (method_exists(Dotenv::class, 'bootEnv')) {
-    (new Dotenv())->bootEnv(dirname(__DIR__) . '/.env');
+    new Dotenv()
+        ->bootEnv(dirname(__DIR__) . '/.env');
 }
 
 if ($_SERVER['APP_DEBUG']) {
@@ -28,7 +30,7 @@ if ($_ENV['APP_ENV'] === 'test') {
     }
 
     require_once dirname(__DIR__) . '/src/Kernel.php';
-    $kernel = new App\Kernel($_ENV['APP_ENV'], (bool) $_ENV['APP_DEBUG']);
+    $kernel = new Kernel($_ENV['APP_ENV'], (bool) $_ENV['APP_DEBUG']);
     $kernel->boot();
 
     $entityManager = $kernel->getContainer()

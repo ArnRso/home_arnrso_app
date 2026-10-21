@@ -64,6 +64,9 @@ jobs:
       - name: Run PHPStan
         run: php -d memory_limit=512M vendor/bin/phpstan analyse
 
+      - name: Run Rector
+        run: vendor/bin/rector process --dry-run
+
       - name: Run ECS code style check
         run: vendor/bin/ecs check
 

@@ -48,6 +48,11 @@
 - Vérification : `vendor/bin/ecs check`
 - Correction automatique : `vendor/bin/ecs check --fix`
 
+#### Rector
+- Sets PHP 8.5 et Symfony/Twig/Doctrine/PHPUnit selon les versions installées
+- Vérification : `vendor/bin/rector process --dry-run`
+- Application : `vendor/bin/rector process` (puis ECS pour le style)
+
 #### PHPUnit
 - Tous les tests doivent passer
 - Exécution : `php bin/phpunit`
@@ -115,8 +120,9 @@ tests/
 ### Avant de Commiter
 1. Lancer les tests : `php bin/phpunit`
 2. Lancer PHPStan : `vendor/bin/phpstan analyse`
-3. Lancer ECS : `vendor/bin/ecs check --fix`
-4. Vérifier que tout est vert ✅
+3. Lancer Rector : `vendor/bin/rector process`
+4. Lancer ECS : `vendor/bin/ecs check --fix`
+5. Vérifier que tout est vert ✅
 
 ### Ajout de Nouvelles Fonctionnalités
 1. Écrire les tests d'abord (TDD recommandé)
@@ -203,6 +209,7 @@ php bin/console app:create-user            # Créer un utilisateur
 # Tests et Qualité
 php bin/phpunit                            # Tests
 vendor/bin/phpstan analyse                 # Analyse statique
+vendor/bin/rector process --dry-run        # Vérifier les modernisations Rector
 vendor/bin/ecs check                       # Vérifier le code style
 vendor/bin/ecs check --fix                 # Corriger le code style
 

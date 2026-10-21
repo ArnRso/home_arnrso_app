@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\TamponEvent;
+use App\Entity\User;
 use App\Repository\TamponEventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -61,7 +62,7 @@ class ToolController extends AbstractController
         TamponEventRepository $repository,
         EntityManagerInterface $entityManager
     ): Response {
-        /** @var \App\Entity\User $user */
+        /** @var User $user */
         $user = $this->getUser();
         $action = $request->request->get('action');
 
