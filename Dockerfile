@@ -36,6 +36,9 @@ RUN php bin/console asset-map:compile
 # Copy Caddyfile
 COPY Caddyfile /etc/caddy/Caddyfile
 
+# Copy PHP configuration
+COPY php.ini $PHP_INI_DIR/conf.d/app.ini
+
 # Copy entrypoint script
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
